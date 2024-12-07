@@ -35,28 +35,26 @@ function orderNums(input1, input2) {
 
 console.log("Part One: ", accumulator);
 
-arrOne.forEach(e => console.log(+e));
+// arrOne.forEach(e => console.log(+e));
+
+arrOne = arrOne.map(e => e.trim());
+arrTwo = arrTwo.map(e => e.trim());
 
 arrOne.forEach((e, idx) => {
-  // console.log(arrOne[idx], "   ", arrTwo[idx]);
-  const count = arrTwo.reduce((acc, val) => {
-    // console.log(+val == +arrOne[idx]);
-    // if (val == arrOne[idx]) {
-    //   console.log("matches");
-    // }
-    return acc + (Number(val) == Number(arrOne[idx]));
-  }, 0);
-  // console.log(count);
-  partTwoAccum = +e * count;
+  const count = arrTwo.reduce((acc, val, ridx) => acc + Number(val.toString() === e.toString()), 0);
+  if (idx > 985 && e == 99168) console.log(`The number ${e} occurs ${count} times`);
+  partTwoAccum += +e * count;
 });
 
 console.log("Part Two: ", partTwoAccum);
 
-/* arrf = [2, 4, 2, 6, 5, 3];
-arrg = [5, 2, 3, 1, 5, 2];
+arrf = ["2", "4", "2", "6", "5", "3"];
+arrg = ["5", "2", "3", "1", "5", "2"];
+
+console.log(arrTwo.slice(0, 4));
+console.log(arrf.slice(0, 4));
 
 arrf.forEach((e, idx) => {
-  const count = arrg.reduce((acc, value) => acc + (value === arrf[idx]), 0);
-  console.log(count);
-  // partTwoAccum = +e * count;
-}); */
+  const count = arrg.reduce((acc, value) => acc + (value === e), 0);
+  console.log(`The number ${e} occurs ${count} times`);
+});
