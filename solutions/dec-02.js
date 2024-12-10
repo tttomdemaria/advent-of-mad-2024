@@ -16,23 +16,36 @@ reports.forEach(el => {
   accumulator += checkIncrement(el.split(" "));
 });
 
+function checkDamper(a, i, isIncreasing) {
+  const min = Number(a[i - 1]) - 3;
+  const max = Number(a[i - 1]) + 3;
+  if (a[i] < a[i - 1] && isIncreasing) {
+    return false;
+  }
+  if (a[i] > a[i - 1] && !isIncreasing) {
+    return false;
+  }
+  if (a[i] > max && isIncreasing) {
+    return false;
+  }
+  if (a[i] < min && !isIncreasing) {
+    return false;
+  }
+  return true;
+}
+
 function checkIncrement(a) {
   let isIncreasing = false;
   if (a[0] < a[1]) isIncreasing = true;
   for (let i = 0; i < a.length; i++) {
+    let counter = 0;
     if (i > 0) {
-      const min = Number(a[i - 1]) - 3;
-      const max = Number(a[i - 1]) + 3;
-      if (a[i] < a[i - 1] && isIncreasing) return false;
-      if (a[i] > a[i - 1] && !isIncreasing) return false;
-      if (a[i] > max && isIncreasing) {
-        return false;
-      }
-      if (a[i] < min && !isIncreasing) {
-        return false;
-      }
+      counter += checkDamper(a, i, isIncreasing);
+      console.log(counter);
     }
+    if (counter == 2) return false;
   }
   return true;
 }
+
 console.log(accumulator);
